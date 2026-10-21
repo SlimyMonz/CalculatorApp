@@ -42,4 +42,12 @@ public class CalculatorServiceTests
     [Fact]
     public void Divide_ByZero_Throws() =>
         Assert.Throws<DivideByZeroException>(() => _calc.Divide(1, 0));
+
+    // This was made because my calculator couldn't add/subtract/multiply a non-integer at first!
+    [Fact]
+    public void Divide_Then_Add_ReturnsValue() {
+        double division = _calc.Divide(5, 2);
+        double addition = _calc.Add(division, 1);
+        Assert.Equal(addition, 3.5);
+    }
 }

@@ -1,41 +1,11 @@
 import { useEffect, useState } from "react";
-import { calculate, type Operation } from "./api";
+import { calculate } from "./api";
+import type { Operation } from "./types";
+import { ERROR_TEXT, MAX_DIGITS, OPERATORS, ZERO_TEXT, formatResult, getOperatorLabel } from "./calculator";
+import Display from "./components/Display";
+import Keypad from "./components/Keypad";
+import Operators from "./components/Operators";
 
-
-// Constants
-interface OperatorConfig {
-  operation: Operation; // what the API calls it
-  label: string;        // what the button and display show
-  keyboardKey: string;  // which physical key triggers it
-}
-
-const OPERATORS: OperatorConfig[] = [
-  { operation: "divide",   label: "÷", keyboardKey: "/" },
-  { operation: "multiply", label: "x", keyboardKey: "*" },
-  { operation: "subtract", label: "-", keyboardKey: "-" },
-  { operation: "add",      label: "+", keyboardKey: "+" },
-];
-
-const DIGIT_KEYS = [7, 8, 9, 4, 5, 6, 1, 2, 3]; // laid out in grid order, 0 sits on the bottom row
-const MAX_DIGITS = 9;
-const ERROR_TEXT = "Error";
-const ZERO_TEXT = "0";
-
-
-// Helpers
-
-// Looks up the display symbol (÷, x, -, +) for an operation.
-function getOperatorLabel(operation: Operation): string {
-  return OPERATORS.find((o) => o.operation === operation)?.label ?? "";
-}
-
-// Trims floating point noise and keeps the result within the display width.
-function formatResult(result: number): string {
-  return String(Number(result.toPrecision(MAX_DIGITS)));
-}
-
-
-// Component
 export default function App() {
   // State
 
@@ -132,60 +102,16 @@ export default function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   });
 
-  // --- Render --------------------------------------------------------------
-
+  // Render
   return (
     <main className="calc">
-      {/* Decorative solar panel */}
-      <div className="solar" aria-hidden="true" />
-
-      {/* Display: pending operator on the left, current number on the right */}
-      <div className="screen" role="status" aria-live="polite">
-        <span className="pending">
-          {pendingOperation ? getOperatorLabel(pendingOperation) : ""}
-        </span>
-        <span className="value">{display}</span>
-      </div>
-
+      <Display
+        value={display}
+        pendingLabel={pendingOperation ? getOperatorLabel(pendingOperation) : ""}
+      />
       <div className="keys">
-        {/* Digits 1-9 */}
-        {DIGIT_KEYS.map((digit) => (
-          <button
-            key={digit}
-            className="key"
-            onClick={() => pressDigit(String(digit))}
-          >
-            {digit}
-          </button>
-        ))}
-
-        {/* Bottom row: Clear, 0, Enter */}
-        <button className="key clear" onClick={resetCalculator}>
-          C
-        </button>
-        <button className="key" onClick={() => pressDigit("0")}>
-          0
-        </button>
-        <button className="key enter" onClick={pressEnter}>
-          Enter
-        </button>
-
-        {/* Operator column (right side, top to bottom) */}
-        {OPERATORS.map((operator, index) => {
-          const isActive = pendingOperation === operator.operation;
-
-          return (
-            <button
-              key={operator.operation}
-              className={`key op${isActive ? " active" : ""}`}
-              style={{ gridColumn: 4, gridRow: index + 1 }}
-              onClick={() => pressOperator(operator.operation)}
-              aria-label={operator.operation}
-            >
-              {operator.label}
-            </button>
-          );
-        })}
+        <Keypad onDigit={pressDigit} onClear={resetCalculator} onEnter={pressEnter} />
+        <Operators activeOperation={pendingOperation} onOperator={pressOperator} />
       </div>
     </main>
   );

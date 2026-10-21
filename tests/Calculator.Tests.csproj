@@ -11,6 +11,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../../src/Calculator.Api/Calculator.Api.csproj" />
+    <ProjectReference Include="../server/Calculator.Api.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 # Calculator (React + .NET 10)
 
 ```
-src/Calculator.Api      ASP.NET Core 10 minimal API  (POST /api/add|subtract|multiply|divide)
+server/Calculator.Api      ASP.NET Core 10 minimal API  (POST /api/add|subtract|multiply|divide)
 tests/Calculator.Tests  xUnit tests for CalculatorService
 web/                    React + TypeScript + Vite
 ```
@@ -9,7 +9,7 @@ web/                    React + TypeScript + Vite
 ## Run
 ```bash
 # 1) API (http://localhost:5080)
-dotnet run --project src/Calculator.Api --urls http://localhost:5080
+dotnet run --project server --urls http://localhost:5080
 
 # 2) Frontend (http://localhost:5173, proxies /api to the API)
 cd web && npm install && npm run dev
