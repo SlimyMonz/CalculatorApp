@@ -11,29 +11,29 @@ public class CalculatorController(ICalculatorService calc) : ControllerBase
     [HttpPost("add")]
     public ActionResult<CalculationResult> Add(CalculationRequest request)
     {
-        var result = new CalculationResult("add", request.A, request.B, calc.Add(request.A, request.B));
+        var result = new CalculationResult(calc.Add(request.A, request.B));
         return Ok(result);
     }
 
     [HttpPost("subtract")]
     public ActionResult<CalculationResult> Subtract(CalculationRequest request)
     {
-        var result = new CalculationResult("subtract", request.A, request.B, calc.Subtract(request.A, request.B));
+        var result = new CalculationResult(calc.Subtract(request.A, request.B));
         return Ok(result);
     }
 
     [HttpPost("multiply")]
     public ActionResult<CalculationResult> Multiply(CalculationRequest request)
     {
-        var result = new CalculationResult("multiply", request.A, request.B, calc.Multiply(request.A, request.B));
+        var result = new CalculationResult(calc.Multiply(request.A, request.B));
         return Ok(result);
     }
 
     [HttpPost("divide")]
-    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
-    public ActionResult<CalculationResult> Divide(CalculationRequest r)
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)] // For divide by 0
+    public ActionResult<CalculationResult> Divide(CalculationRequest request)
     {
-        var result = new CalculationResult("divide", r.A, r.B, calc.Divide(r.A, r.B));
+        var result = new CalculationResult(calc.Divide(request.A, request.B));
         return Ok(result);
     }
 }

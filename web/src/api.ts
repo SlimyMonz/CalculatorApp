@@ -2,9 +2,6 @@ import type { Operation } from "./types";
 
 // Mirrors ICalculationResult on the backend.
 export interface CalculationResult {
-  operation: string;
-  a: number;
-  b: number;
   result: number;
 }
 
