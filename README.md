@@ -1,20 +1,26 @@
 # Calculator (React + .NET 10)
 
+## Purpose
+This is an over-engineered calculator app that uses the full stack of development aside from a database. Made this in <10 hours to display coding style and technical skill.
+
 ```
-server/Calculator.Api      ASP.NET Core 10 minimal API  (POST /api/add|subtract|multiply|divide)
-tests/Calculator.Tests  xUnit tests for CalculatorService
-web/                    React + TypeScript + Vite
+server/Calculator.Api       ASP.NET Core 10 Server API
+tests/Calculator.Tests      xUnit tests for CalculatorService
+web/                        React + TypeScript + Vite
 ```
+
+## Requirements
+1) .NET 10
+2) Node
 
 ## Run
+This will automatically install packages and run both web and server:
 ```bash
-# 1) API (http://localhost:5080)
-dotnet run --project server --urls http://localhost:5080
+npm run both
+```
 
-# 2) Frontend (http://localhost:5173, proxies /api to the API)
-cd web && npm install && npm run dev
-
-# Tests
+To run tests:
+```bash
 dotnet test
 ```
 

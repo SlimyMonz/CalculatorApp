@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "both": "npm i && concurrently -k -n API,WEB -c blue,green \"dotnet run --project server --urls http://localhost:5080\" \"npm --prefix web run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
