@@ -24,6 +24,7 @@ To run tests:
 dotnet test
 ```
 
+## Example API
 Request:  `POST /api/add` with `{ "a": 2, "b": 3 }`
-Response: `{ "operation": "add", "a": 2, "b": 3, "result": 5 }`
+Response: `{ "result": 5 }`
 Divide by zero returns `400 { "error": "Cannot divide by zero." }`.
