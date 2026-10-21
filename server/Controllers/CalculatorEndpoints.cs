@@ -2,7 +2,7 @@ using Calculator.Api.Models;
 using Calculator.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Calculator.Api.Endpoints;
+namespace Calculator.Api.Controllers;
 
 [ApiController]
 [Route("api")]

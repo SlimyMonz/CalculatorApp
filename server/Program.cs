@@ -1,4 +1,4 @@
-using Calculator.Api.Endpoints;
+using Calculator.Api.Controllers;
 using Calculator.Api.Services;
 using Calculator.Api.Handler;
 
